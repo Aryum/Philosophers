@@ -6,7 +6,7 @@
 /*   By: ricsanto <ricsanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 11:27:39 by ricsanto          #+#    #+#             */
-/*   Updated: 2025/12/15 14:22:08 by ricsanto         ###   ########.fr       */
+/*   Updated: 2026/02/02 14:27:32 by ricsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_waiter
 	t_mutex		ini_mut;
 	long		start_time;
 	int			finsihed_count;
-	bool		finished_creation;
 	bool		end;
 }	t_waiter;
 
@@ -83,7 +82,6 @@ void	accurate_sleep(long delta, t_waiter *waiter);
 int		sf_malloc(void **ptr, unsigned long size);
 
 //safe threads
-int		ini_thread(t_data *data, int i);
 int		sf_create_mutex(t_mutex *mutex);
 void	sf_destroy_mutex(t_mutex *mutex);
 void	mutex_lock(t_mutex *mutex);

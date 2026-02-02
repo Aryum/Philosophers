@@ -6,7 +6,7 @@
 /*   By: ricsanto <ricsanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 12:08:53 by ricsanto          #+#    #+#             */
-/*   Updated: 2025/12/15 14:22:47 by ricsanto         ###   ########.fr       */
+/*   Updated: 2026/02/02 14:33:36 by ricsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,21 @@
 
 static int	create_philo(t_data *data, int i)
 {
-	t_philo	philo;
+	t_philo	*philo;
 
-	memset(&philo, 0, sizeof(t_philo));
+	philo = &data->phi_arr[i];
+	memset(philo, 0, sizeof(t_philo));
 	if (i == 0)
-		philo.fork[0] = data->param.phi_count - 1;
+		philo->fork[0] = data->param.phi_count - 1;
 	else
-		philo.fork[0] = i - 1;
-	philo.fork[1] = i;
-	philo.nbr = i + 1;
-	philo.param = data->param;
-	philo.waiter = &data->waiter;
-	data->phi_arr[i] = philo;
+		philo->fork[0] = i - 1;
+	philo->fork[1] = i;
+	philo->nbr = i + 1;
+	philo->param = data->param;
+	philo->waiter = &data->waiter;
 	if (!sf_create_mutex(&data->waiter.philo[i]))
 		return (0);
-	if (!ini_thread(data, i))
-		return (0);
-	return (1);
-}
-
-static int	create_fork(t_data *data, int i)
-{
-	if (!sf_create_mutex(&data->waiter.forks[i]))
+	if (pthread_create(&philo->thread, NULL, philo_loop, philo) != 0)
 		return (0);
 	return (1);
 }
@@ -50,11 +43,10 @@ static int	create_philos(t_data *dt)
 	{
 		if (!create_philo(dt, i))
 			return (free_data(dt, "Failed to create philo"), 0);
-		if (!create_fork(dt, i))
+		if (!sf_create_mutex(&dt->waiter.forks[i]))
 			return (free_data(dt, "Failed to create fork"), 0);
 		i++;
 	}
-	dt->waiter.finished_creation = true;
 	dt->waiter.start_time = get_current_time(&dt->waiter);
 	i = 0;
 	while (i < dt->param.phi_count)

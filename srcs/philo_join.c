@@ -6,7 +6,7 @@
 /*   By: ricsanto <ricsanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 15:31:18 by ricsanto          #+#    #+#             */
-/*   Updated: 2025/12/15 14:23:11 by ricsanto         ###   ########.fr       */
+/*   Updated: 2026/02/02 14:29:25 by ricsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	philo_join(t_data *data)
 		if (pthread_join(data->phi_arr[i].thread, NULL) != 0)
 		{
 			print_error("Failed to join threads\n", &data->waiter);
+			set_end(&data->waiter);
 			break ;
 		}
 		i++;
