@@ -6,7 +6,7 @@
 /*   By: ricsanto <ricsanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:00:24 by ricsanto          #+#    #+#             */
-/*   Updated: 2025/12/15 14:23:14 by ricsanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 12:04:21 by ricsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	*philo_loop(void *arg)
 	mutex_unlock(&w->ini_mut);
 	if (p->param.phi_count == 1)
 	{
+		msg(w, p->nbr, "has taken a fork");
 		accurate_sleep(p->param.die_delta, w);
 		return (NULL);
 	}

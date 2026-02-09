@@ -6,7 +6,7 @@
 /*   By: ricsanto <ricsanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 11:01:04 by ricsanto          #+#    #+#             */
-/*   Updated: 2025/12/15 14:23:20 by ricsanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 12:07:52 by ricsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	reached_target(t_data *dt)
 		mutex_lock(&w->philo[i]);
 		ret = dt->phi_arr[i].eat_count == param.total_eat_count;
 		mutex_unlock(&w->philo[i]);
-		if (ret == false)
+		if (!ret)
 			return (false);
 		i++;
 	}

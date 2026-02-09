@@ -6,7 +6,7 @@
 /*   By: ricsanto <ricsanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:57:49 by ricsanto          #+#    #+#             */
-/*   Updated: 2025/12/15 14:23:16 by ricsanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 12:19:17 by ricsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	msg_died(t_waiter *w, int nbr)
 	time = get_current_time(w) - w->start_time;
 	if (!read_end(w))
 	{
-		printf("%ld %d %s\n", time, nbr, "died");
+		printf("%ld %d died\n", time, nbr);
 		set_end(w);
 	}
 	mutex_unlock(&w->msg_mut);

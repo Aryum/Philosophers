@@ -6,7 +6,7 @@
 /*   By: ricsanto <ricsanto@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 15:06:06 by ricsanto          #+#    #+#             */
-/*   Updated: 2025/12/15 14:23:06 by ricsanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 12:23:43 by ricsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,11 @@ long	get_current_time(t_waiter *waiter)
 	long			current;
 
 	if (gettimeofday(&tv, NULL) == -1)
-		return (print_error("Get time error", waiter), 0);
+	{
+		//set_end(waiter);
+		print_error("Get time error", waiter);
+		return (0);
+	}
 	current = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (current);
 }
