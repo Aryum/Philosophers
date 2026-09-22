@@ -23,3 +23,23 @@ Each philosopher is represented by a thread. They repeatedly:
 5. Think
 
 A monitoring routine continuously checks whether any philosopher has starved (i.e., hasn't eaten within the allowed time) and stops the simulation if so.
+
+## Usage
+
+```bash
+make
+./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
+```
+
+**Example:**
+```bash
+./philo 5 800 200 200
+```
+
+| Argument | Description |
+|---|---|
+| `number_of_philosophers` | Number of philosophers (and forks) at the table |
+| `time_to_die` (ms) | Time without eating before a philosopher dies |
+| `time_to_eat` (ms) | Time it takes to eat |
+| `time_to_sleep` (ms) | Time spent sleeping |
+| `number_of_times_each_philosopher_must_eat` (optional) | Simulation stops once all philosophers have eaten this many times |
