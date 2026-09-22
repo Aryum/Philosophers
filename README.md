@@ -43,3 +43,5 @@ make
 | `time_to_eat` (ms) | Time it takes to eat |
 | `time_to_sleep` (ms) | Time spent sleeping |
 | `number_of_times_each_philosopher_must_eat` (optional) | Simulation stops once all philosophers have eaten this many times |
+
+*This project was done as part of the 42 curriculum.*
