@@ -1,20 +1,25 @@
 # Philosophers
-A thread management exercise, to learn about data races, dead locks and multhreading logic. Based on the dining philosophers we are supposed to simulate a dinner, where a variable ammount of philosophers need to stay alive by not starving, the catch? There is only one fork per philosopher, which they share with the philosopher in their right and need two to begining eating not being able to talk to each other. If one of them die or they have eaten enough times, the simulation ends.
 
-## Main Logic
-First we need to parse the arguments that the program takes:
-  - Number of philosophers
-  - Time to die
-  - Time to eat
-  - Time to sleep
-  - (optional) number of times each philosopher must eat
+A 42 School project that solves the classic **Dining Philosophers** problem, tackling thread synchronization, mutexes, and race conditions in C.
 
-In this exercise a philosopher is a thread and a fork is a mutex.
+## About
 
-Since only one philosopher can have a fork at a time, each time a philosopher wants to eat we lock their forks, each in a different order so we dont end up causing a dead lock. When they have both forks the philosopher starts eating, releasing them after for the other philosphers. After eating they go to sleep, and when they wake up the cycle repeats.
+**Philosophers** is a concurrency and multithreading project from the 42 curriculum. The goal is to simulate a group of philosophers sitting around a table, alternating between eating, sleeping, and thinking, while sharing a limited number of forks with their neighbors.
 
-Since locking a mutex it makes the thread wait if the mutex is not availale it makes the thread behaviour quite simple, just lock and unlock when they start/finish eating. 
+The core challenge lies in coordinating access to shared resources (the forks) without causing:
+- **Deadlocks** — philosophers waiting forever for a fork that will never become free
+- **Data races** — unsynchronized access to shared state
+- **Starvation** — a philosopher never getting the chance to eat
 
-**But how we check if any of them has died?**
+This project builds an understanding of process/thread management, mutexes, and precise timing — all implemented from scratch in C.
 
-For this we use the main thread to check if the time since last they ate isn't bigger than the time to die, if it is we finish the simulation, by setting a end flag to true. This end flag is also checked before printing and in each iteration of the philo loop logic to ensure that the simuation ends when one of them dies. 
+## How It Works
+
+Each philosopher is represented by a thread. They repeatedly:
+1. Pick up two forks (mutexes) — one on each side
+2. Eat for a set duration
+3. Put down the forks
+4. Sleep
+5. Think
+
+A monitoring routine continuously checks whether any philosopher has starved (i.e., hasn't eaten within the allowed time) and stops the simulation if so.
